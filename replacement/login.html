@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="login.css" />
+    <title>Login</title>
+  </head>
+  <style>
+    *{
+    margin: 0;
+    padding: 0;
+    font-family: "poppins",sans-serif;
+    box-sizing: border-box;
+    
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #306998;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.container h1{
+    padding: 30px;
+    margin-bottom: 30px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 30px;
+}
+.container p {
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 25px;
+        margin-bottom:20px ;
+    }
+
+.container form label {
+
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+}
+.container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 4px solid rgb(0, 0, 0);
+    padding: 30px;
+    background-color: #FFD43B;
+    border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+}
+.container form input{
+    padding: 10px;
+    margin: 10px;
+}
+.container form button{
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+  </style>
+  <body>
+    <div class="container">
+      <h1>Replacement Management</h1>
+      <p>LOGIN</p>
+      <form id="loginForm">
+        <input type="text" placeholder="Email" id="email"/>
+        <input type="text" placeholder="Password" id="password"/>
+
+        <div class="radio">
+          <input type="radio" id="Student" name="Category" value="Student" />
+          <label for="Student">Student</label>
+          <input type="radio" id="Staff" name="Category" value="Staff" />
+          <label for="Staff">Staff</label>
+          <input type="radio" id="Admin" name="Category" value="Admin" />
+          <label for="Admin">Admin</label>
+        </div>
+        <button type="submit" id="studentRegister">Student Registration</button>
+        <button type="submit" id="loginButton">Submit</button>
+      </form>
+    </div>
+
+    <script type="module">
+      localStorage.clear()
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        push,
+        get,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDkWa8gMvrWxV_9nftyrMrUg_hd3LvxGAE",
+    authDomain: "replace----2.firebaseapp.com",
+    projectId: "replace----2",
+    storageBucket: "replace----2.appspot.com",
+    messagingSenderId: "437429447252",
+    appId: "1:437429447252:web:2cf6f6be64579f54c31bc1"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+
+      document.getElementById('studentRegister').addEventListener('click',function(){
+        window.location.href = "studentRegister.html"
+      })
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          let category = document.querySelector(
+            'input[name="Category"]:checked'
+          ).value;
+
+          if (category === "Student") {
+            student_login()
+          } else if (category === "Staff") {
+            staff_login()
+          } else if (category === "Admin") {
+            admin_login()
+          } else {
+            alert("Please select a category");
+          }
+        });
+      function student_login()
+      {
+         var email = document.getElementById('email').value
+         var password = document.getElementById('password').value
+         var regno = email.slice(0,email.length-15)
+         var mref = ref(database,'login_details')
+         onValue(mref,(snapshot)=>{
+          const data = snapshot.val()
+          if(data[regno].password == password)
+          {
+            alert('successfully logged in');
+            localStorage.setItem('regno',regno)
+            window.location.href = "student_page.html"
+          }
+          else{
+            alert("No such data found")
+          }
+         })
+      }
+      function admin_login()
+      {
+          var email = document.getElementById('email').value
+          var password = document.getElementById('password').value
+          var name = email.slice(0,email.length-15)
+          var mref = ref(database,'admin_login')
+          onValue(mref,(snapshot)=>{
+            const data = snapshot.val()
+          if(data[name].password == password)
+          {
+            alert('successfully logged in');
+            window.location.href = "admin_page.html"          }
+          else{
+            alert("No such data found")
+          }
+         })
+      }
+      function staff_login()
+      {
+        var email = document.getElementById('email').value
+          var password = document.getElementById('password').value
+          var name = email.slice(0,email.length-15)
+          var mref = ref(database,'staff_details')
+          onValue(mref,(snapshot)=>{
+            const data = snapshot.val()
+          if(data[name].password == password)
+          {
+            alert('successfully logged in');
+            localStorage.setItem('name',data[name].username)
+            window.location.href="staff_page.html";
+          }
+          else{
+            alert("No such data found");
+          }
+         })
+      }
+    </script>
+  </body>
+</html>

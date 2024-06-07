@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Page</title>
+
+</head>
+<style>
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins",sans-serif;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #306998;
+}
+a{
+  color: white;  
+}
+.container
+{
+   
+ 
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+.activeTask{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 100%;
+
+padding: 30px;
+
+}
+.taskView{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+height: 35vh;
+padding: 40px;
+background-color: #FFD43B;
+border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+  
+    border: 4px solid rgb(0, 0, 0);
+}
+.accept{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 100%;
+
+padding: 30px;
+
+}
+.acceptTask{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+height: 35vh;
+padding: 40px;
+background-color: #FFD43B;
+border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+  
+    border: 4px solid rgb(0, 0, 0);
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    width: 100vw;
+    padding: 20px 30px;
+
+}
+nav p{
+    color: #f1f1f1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    margin-bottom:20px ;
+}
+
+
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+  
+}
+nav ul li a{
+    text-decoration: none;
+    
+    position: relative;
+   
+    color: #f1f1f1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    margin-bottom:20px ;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #030303;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fdfdfd;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #726b6b;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.taskContainer{
+    display: none;
+    justify-content: space-between;
+    margin: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%;
+    background-color: #306998;
+border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+    border: 4px solid rgb(0, 0, 0);
+}
+.taskContainer1{
+    display: none;
+    justify-content: space-between;
+    margin: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%;
+    background-color: #306998;
+    border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+    border: 4px solid rgb(0, 0, 0);
+}
+.desc{
+    display: flex;
+    justify-content:space-evenly;
+    margin: 20px;
+
+    align-items: center;
+    width: 100%;
+    border-radius: 20px;
+ 
+}
+.taskContainer h2{ 
+margin-left: 10px;
+margin-top: 10px;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    margin-bottom:20px ;
+    color: aliceblue;
+}
+.desc button{
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.desc p{
+    text-align: justify;
+    margin:0px 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 17px;
+    margin-bottom:20px ;
+    color: aliceblue;
+}
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 10px;
+}
+.activeTask p{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    margin-bottom:20px ;
+    color: aliceblue;
+}
+.accept p{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    margin-bottom:20px ;
+    color: aliceblue;
+}
+#currentTaskConatiner{
+    display: none;
+}
+</style>
+<body>
+    <div class="container">
+        <nav>
+            <p style="font-size: 20px;">Student Page</p>
+    
+            <ul id="sidemenu">
+              <li><a href = "requestod.html">Request On-Duty</a></li>
+              <li><a href = "#" id="menuBtn">View Profile</a></li>
+    
+            </ul>
+            
+    
+          </nav>
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn">&times;</a>
+            <a href="#" id="profile" style="font-size:30px;">Profile</a>
+            <a href="#" id="s_name"></a>
+            <a href="#" id="s_email"></a>
+            <a href="#" id="s_dept"></a>
+        </div>
+        <div class="activeTask">
+            <p>Active Task</p>
+            <div class="taskView" id="c_con">
+                <div class="taskContainer" id="c_task">
+                    <pre id="c_sub">Sub</pre>
+                    <div class="desc">
+                    <div class="description">
+                    <p id = "c_desc"></p>
+                    </div> 
+                    <div class="buttons">
+                    <button id="c_but">Completed</button>
+                </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <div class="accept">
+            <p>Task to be Accepted</p>
+            <div class="acceptTask" id="a_con">
+                <div class="taskContainer1" id="a_task">
+                    <pre id="a_sub"></pre>
+                    <div class="desc">
+                    <div class="description">
+                    <p id="a_desc"></p>
+                    </div> 
+                    <div class="buttons">
+                    <button id ="aa_but">accept</button>
+                    <button id="ar_but">reject</button>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+ 
+   
+    
+<script type="module">
+    
+     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        push,
+        get,
+        onValue,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDkWa8gMvrWxV_9nftyrMrUg_hd3LvxGAE",
+    authDomain: "replace----2.firebaseapp.com",
+    projectId: "replace----2",
+    storageBucket: "replace----2.appspot.com",
+    messagingSenderId: "437429447252",
+    appId: "1:437429447252:web:2cf6f6be64579f54c31bc1"
+      };
+
+      // Initialize Firebase
+      
+
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      to_accept()
+      accepted()
+    document.getElementById('menuBtn').addEventListener('click', function () {
+        document.getElementById('mySidenav').style.width = '250px';
+
+        var nav = document.getElementById('mySidenav')
+        var mref = ref(database,'login_details')
+      onValue(mref,(snapshot)=>{
+          const data = snapshot.val()
+          var regno = localStorage.getItem('regno')
+       document.getElementById('s_name').textContent = data[regno].username
+       document.getElementById('s_email').innerHTML = data[regno].email
+       document.getElementById('s_dept').innerHTML = data[regno].department
+    });
+    });
+    document.querySelector('.sidenav .closebtn').addEventListener('click', function () {
+        document.getElementById('mySidenav').style.width = '0';
+    });
+
+    document.querySelectorAll('.sidenav a:not(.closebtn)').forEach(anchor => {
+        anchor.addEventListener('click', function () {
+            document.getElementById('mySidenav').style.width = '0';
+        });
+    });
+   
+    function to_accept()
+    {
+        var mref = ref(database,'task/')
+        
+      onValue(mref,(snapshot)=>{
+          const data = snapshot.val()
+          try{
+          let sub = data[localStorage.getItem('regno')].sub
+          let desc = data[localStorage.getItem('regno')].desc
+          let staff = data[localStorage.getItem('regno')].staff_name
+          let date = data[localStorage.getItem('regno')].date
+          document.getElementById("a_task").style.display = "flex";
+          let x = "Subject: " + sub+ "      Staff: "+staff+"      Date: "+date;
+          document.getElementById("a_sub").textContent = x;
+          document.getElementById("a_desc").textContent = desc;
+          document.getElementById("aa_but").addEventListener('click',function(e){
+            const messageRef = ref(database, 'task_accepted/'+ localStorage.getItem('regno'));
+          set(messageRef, {
+              regno:localStorage.getItem('regno'),
+              sub:sub,
+              desc:desc,
+              staff:staff,
+              date:date,
+              status:"accepted",
+          }).then(()=>{
+            var kk = ref(database,'task/'+localStorage.getItem('regno'))
+            remove(kk)
+            .then(() => {
+    console.log('Task accepted');
+    window.location.reload()
+  })
+  .catch((error) => {
+    console.error('Error removing key: ', error);
+  });
+          })
+          })
+          document.getElementById("ar_but").addEventListener('click',function(e){
+            const messageRef = ref(database, 'task_replacement/'+ localStorage.getItem('regno'));
+          set(messageRef, {
+              regno:localStorage.getItem('regno'),
+              sub:sub,
+              desc:desc,
+              staff:staff,
+              date:date,
+          }).then(()=>{
+            var kk = ref(database,'task/'+localStorage.getItem('regno'))
+            remove(kk)
+            .then(() => {
+    window.location.reload()
+    console.log('Task replacement requested');
+  })
+  .catch((error) => {
+    console.error('Error removing key: ', error);
+  });
+          })
+          })
+      
+    }catch(e){
+        var a = document.createElement("p");
+        document.getElementById("a_task").style.display = "none";
+        a.textContent = "No tasks"
+        a.style.color = "black"
+        document.getElementById("a_con").appendChild(a);
+    }
+})};
+
+
+
+
+
+function accepted()
+    {
+        var mref = ref(database,'task_accepted/')
+        
+      onValue(mref,(snapshot)=>{
+          const data = snapshot.val()
+          try{
+          let sub = data[localStorage.getItem('regno')].sub
+          let desc = data[localStorage.getItem('regno')].desc
+          let staff = data[localStorage.getItem('regno')].staff
+          let date = data[localStorage.getItem('regno')].date
+          document.getElementById("c_task").style.display = "flex";
+          let x = "Subject: " + sub+ "      Staff: "+staff+"      Date: "+date;
+          document.getElementById("c_sub").textContent = x;
+          document.getElementById("c_desc").textContent = desc;
+          document.getElementById("c_but").addEventListener('click',function(e){
+            const messageRef = ref(database, 'task_completed/' + localStorage.getItem('regno'));
+          set(messageRef, {
+              regno:localStorage.getItem('regno'),
+              sub:sub,
+              staff:staff,
+              desc:desc,
+              date:date,
+              status:"completed",
+          }).then(()=>{
+            var kk = ref(database,'task_accepted/'+localStorage.getItem('regno'))
+            remove(kk)
+            .then(() => {
+    console.log('Task removed successfully');
+    window.location.reload()
+  })
+  .catch((error) => {
+    console.error('Error removing key: ', error);
+  });
+})
+          })
+    document.getElementById("c_but").addEventListener('click',function(e){
+            const messageRef = ref(database, 'task_completed/' + localStorage.getItem('regno'));
+          set(messageRef, {
+              regno:localStorage.getItem('regno'),
+              sub:sub,
+              staff:staff,
+              desc:desc,
+              date:date,
+              status:"completed",
+          }).then(()=>{
+            var kk = ref(database,'task_accepted/'+localStorage.getItem('regno'))
+            remove(kk)
+            .then(() => {
+    console.log('Task removed successfully');
+    window.location.reload()
+  })
+  .catch((error) => {
+    console.error('Error removing key: ', error);
+  });
+})
+          })
+      
+    }catch(e){
+        var a = document.createElement("p");
+        document.getElementById("c_task").style.display = "none";
+        a.textContent = "No tasks"
+        a.style.color = "black"
+        document.getElementById("c_con").appendChild(a);
+    }
+}
+)};
+
+</script>  
+</body>
+</html>

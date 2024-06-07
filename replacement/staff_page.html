@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal
+    </title>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins",sans-serif;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #306998;
+
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    width: 100vw;
+    padding: 20px 30px;
+    height:20%;
+
+}
+nav p{
+    color: #f1f1f1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    margin-bottom:20px ;
+}
+
+
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+  
+}
+nav ul li a{
+    text-decoration: none;
+    
+    position: relative;
+   
+    color: #f1f1f1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    margin-bottom:20px ;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #000000;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.assignTask {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 4px solid rgb(0, 0, 0);
+    padding: 50px;
+    background-color: #FFD43B;
+    border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+    height:80%;
+    width: 40%;
+}
+.assignTask form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 50px;
+}
+.assignTask form input{
+    padding: 10px;
+    margin: 10px;
+}
+
+.assignTask form button{
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.ODRequest{
+    height: 80%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border: 4px solid rgb(0, 0, 0);
+    padding: 50px;
+    background-color: #FFD43B;
+    border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+}
+.ODRequest h3
+{
+
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 25px;
+        margin-bottom:20px ;
+    
+}
+
+.currentRequests{
+    display: flex;
+justify-content: space-between;
+margin: 10px;
+padding: 10px;
+flex-direction: column;
+align-items: flex-start;
+width: 100%;
+min-height: 20%;
+max-height: 80%;
+background-color: #306998;
+border-radius: 4px;
+box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+border: 4px solid rgb(0, 0, 0);
+}
+.container{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+}
+
+.currentRequests p{
+    margin-bottom: 10px;
+}
+.btn{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+}
+.btn button{
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+</style>
+<body>
+    
+        
+            <nav>
+                <p style="font-size: 20px;">Staff Login</p>
+                <ul id="sidemenu">
+                  <li><a href = "taskreplace.html">Task Status</a></li>
+                  <li><a href = "#" id="menuBtn">View Profile</a></li>
+                </ul>
+              </nav>
+              <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn">&times;</a>
+                <a href="#" id="profile" style="font-size:30px;">Profile</a>
+                <a href="#" id="s_name"></a>
+                <a href="#" id="s_email"></a>
+                <a href="#" id="s_dept"></a>
+            </div>
+            <div class="container">
+        <div class="assignTask">
+            <h3>Assign Tasks</h3>
+            <form id="taskform">
+                <input type="text" placeholder="Register Number" id="regno">
+                <input type="text" placeholder="Subject" id="sub">
+                <input type="text" placeholder="Description" id="desc">
+                <input type="text"placeholder="date" id="date">
+                <button>Give Task</button>
+            </form>
+        </div>
+        <div class="ODRequest">
+            <h3>On Duty Request</h3>
+            <div class="currentRequests" id="od_con">
+              
+                <p id="reg_no">Register No</p>
+                <p id="df">Date From</p>
+                <p id="dt">Date to</p>
+                <p id="rq">Requrement</p>
+                <p id="dec">Description</p>
+                    <div class="btn">
+                        <button style="background-color: green;" id="oa">Approve</button>
+                        <button style="background-color: red;" id="or">Reject</button>
+                    </div>
+               
+               
+            </div>
+        </div>
+
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        push,
+        get,
+        onValue,
+        update,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDkWa8gMvrWxV_9nftyrMrUg_hd3LvxGAE",
+    authDomain: "replace----2.firebaseapp.com",
+    projectId: "replace----2",
+    storageBucket: "replace----2.appspot.com",
+    messagingSenderId: "437429447252",
+    appId: "1:437429447252:web:2cf6f6be64579f54c31bc1"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      odstatus()
+
+        document.getElementById('menuBtn').addEventListener('click', function () {
+            document.getElementById('mySidenav').style.width = '250px';
+    
+        });
+        document.querySelector('.sidenav .closebtn').addEventListener('click', function () {
+            document.getElementById('mySidenav').style.width = '0';
+        });
+    
+        document.querySelectorAll('.sidenav a:not(.closebtn)').forEach(anchor => {
+            anchor.addEventListener('click', function () {
+                document.getElementById('mySidenav').style.width = '0';
+            });
+        });
+
+        document.getElementById('taskform').addEventListener('submit',function(e)
+        {
+            e.preventDefault()
+            var regno = document.getElementById('regno').value
+            var subject = document.getElementById('sub').value
+            var dec = document.getElementById('desc').value
+            var date = document.getElementById('date').value
+
+            const messageRef = ref(database, 'task/'+regno);
+            set(messageRef, {
+                regno:regno,
+                desc:dec,
+                date:date,
+                sub:subject,
+                staff_name:localStorage.getItem("name"),
+            }).then(() => {
+                  // Redirect to another HTML page
+                  alert("task allocated successfully")
+                window.location.reload()
+              })
+  
+        })
+
+        function odstatus()
+        {
+            var mref = ref(database,'odrequest/')
+            onValue(mref,(snapshot)=>{
+                const data = snapshot.val()
+                let reg = "";
+                let df;
+                let dt;
+                let requ;
+                let desc;
+                for(let key in data)
+                {
+                    if(data[key].staff_name == localStorage.getItem('name') && data[key].status=="yet to accept")
+                    {
+                        var odcon = document.getElementById('od_con');
+                        reg = data[key].regno;
+                        df = data[key].date_from;
+                        dt = data[key].date_to;
+                        requ = data[key].require
+                        desc = data[key].desc;
+                        document.getElementById('reg_no').innerHTML="<b>Register No: </b>" + data[key].regno
+                        document.getElementById('df').innerHTML = "<b>Date From: </b>" + data[key].date_from
+                        document.getElementById('dt').innerHTML = "<b>Date To: </b>" + data[key].date_to
+                        document.getElementById('rq').innerHTML = "<b>Requirements: </b>" + data[key].require
+                        document.getElementById('dec').innerHTML = "<b>Description: </b>" + data[key].desc
+                        break
+                    }
+                }
+                if(reg != ""){
+                    document.getElementById("oa").addEventListener("click", function() {
+                        const mref = ref(database, 'odrequest/' + reg);
+                        updateRequestStatus(reg,'Accepted');
+                        window.location.reload()
+                    });
+
+                    document.getElementById("or").addEventListener("click", function() {
+                        const mref = ref(database, 'odrequest/' + reg);
+                        updateRequestStatus(reg,'Rejected');
+                        window.location.reload()
+                    });
+
+                    function updateRequestStatus(reg, newStatus) {
+                        // Update the status of the request
+                        const messageRef = ref(database, 'odrequest/'+ reg);
+                        set(messageRef, {
+                            regno:reg,
+                            staff_name : localStorage.getItem('name'),
+                            date_from:df,
+                            date_to:dt,
+                            require:requ,
+                            desc:desc,
+                            status:newStatus,
+                        })
+                        
+                    }
+                    
+                }
+            })
+  
+        }
+    </script>
+</body>
+</html>

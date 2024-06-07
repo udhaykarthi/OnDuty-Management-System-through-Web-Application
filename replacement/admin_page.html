@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins",sans-serif;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #306998;
+}
+.container h1{
+    padding: 30px;
+    margin-bottom: 30px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 30px;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 4px solid rgb(0, 0, 0);
+    padding: 30px;
+    background-color: #FFD43B;
+    border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+}
+.container form input{
+    padding: 10px 30px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+.container form button{
+    margin: 20px;
+    padding: 15px;
+    border-radius: 10px;
+}
+.container form select{
+    padding: 8px;
+    border-radius: 4px;
+    border-style: none;
+
+}
+.container form p {
+
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 25px;
+        margin-bottom:20px ;
+    }
+    </style>
+     <script src="https://www.gstatic.com/firebasejs/8.1.0/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.1.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome Admin</h1>
+        <p>Add Staff</p>
+        <form id="staffform">
+            <input type="text" placeholder="Name" id="name">
+            <input type="text" placeholder="College - Email" id="email">
+            <input type="text" placeholder="Department" id="dept">
+            <input type="text" placeholder="Password" id="password">
+            <button id="but" type="submit">Add Staff</button>
+        </form>
+        <form id="delform">
+            <h3>Remove Staff</h3>
+        <select name="" id="staffname"></select>
+        <button id="deletestaff">Delete staff</button>
+        </form>
+    </div>
+    <script type="module">
+         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        push,
+        onValue,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDkWa8gMvrWxV_9nftyrMrUg_hd3LvxGAE",
+    authDomain: "replace----2.firebaseapp.com",
+    projectId: "replace----2",
+    storageBucket: "replace----2.appspot.com",
+    messagingSenderId: "437429447252",
+    appId: "1:437429447252:web:2cf6f6be64579f54c31bc1"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+
+      const selectElement = document.getElementById('staffname');
+      selectElement.innerHTML=''
+      var mref = ref(database,'staff_details')
+      onValue(mref,(snapshot)=>{
+          const data = snapshot.val()
+
+          for(let key in data){
+            // Create a new option element
+            const option = document.createElement('option');
+            option.value = data[key].username;
+            option.text = data[key].username;
+        
+            // Add the option to the select element
+            selectElement.add(option);
+          };
+      })
+
+
+
+
+
+
+
+      document.getElementById('staffform').addEventListener('submit',function(e){
+        e.preventDefault()
+
+        const name = document.getElementById("name").value;
+        const department = document.getElementById("dept").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById('password').value
+
+        if(password.length < 8)
+        {
+          alert("Password is too small")
+          c-=1
+        }
+        else{
+        const messageRef = ref(database, 'staff_details/'+ email.slice(0,email.length-15));
+          set(messageRef, {
+              username:name,
+              department:department,
+              email: email,
+              password: password,
+          }).then(() => {
+                // Redirect to another HTML page
+                alert("successfully signed in")
+                window.location.reload()
+            })
+          }
+      })
+
+    document.getElementById("delform").addEventListener("submit",function(e){
+        e.preventDefault();
+        let staff_name = document.getElementById("staffname").value
+        const keyRef = ref(database, 'staff_details/' + staff_name);
+
+// Remove the key and its value
+remove(keyRef)
+  .then(() => {
+    console.log('Staff removed successfully');
+    alert('Staff removed successfully');
+    window.location.reload()
+  })
+  .catch((error) => {
+    console.error('Error removing key: ', error);
+    alert('Error removing key: ' + error);
+  });
+    })
+    </script>
+</body>
+</html>

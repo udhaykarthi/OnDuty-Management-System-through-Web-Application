@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On-Duty Form</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins",sans-serif;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #306998;
+}
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+}
+.container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 4px solid rgb(0, 0, 0);
+    padding: 50px;
+    background-color: #FFD43B;
+    border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+    height:80%;
+    width: 40%;
+    
+
+}
+.container form input{
+    padding: 10px 30px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.container form select{
+    padding: 8px;
+    border-radius: 4px;
+    border-style: none;
+    margin-bottom: 10px;
+
+}
+.container form button{
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.container form h4 {
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 25px;
+        margin-bottom:20px ;
+    }
+
+    .ODstatus{
+        height: 80%;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        border: 4px solid rgb(0, 0, 0);
+        padding: 50px;
+        background-color: #FFD43B;
+        border-radius: 4px;
+        box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+
+    }
+    .ODstatus h4{
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 25px;
+        margin-bottom:20px ;
+    }
+    .acceptedOrNot{
+        padding: 20px;
+        display: flex;
+    justify-content: space-evenly;
+    margin: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 30%;
+    background-color: #306998;
+border-radius: 4px;
+    box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+    border: 4px solid rgb(0, 0, 0);
+    }
+    .regNo{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 10px;
+
+    }
+    .desc
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 10px;
+
+    }
+    .date
+    {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    #status{
+        border: 4px solid black;
+        color: wheat;
+    }
+    .date button{
+        margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    }
+    
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <form id="odform">
+        <h4>Request On-Duty</h4>
+        <input type="text" placeholder="Register Number" id="regno">
+        <label for="Teacher">Select Teacher</label>
+            <select name="Teacher" id="teacher"></select>
+        <input type="text" placeholder="Select date from" id="date_from">
+        <input type="text" placeholder="Select date to" id="date_to">
+        <input type="text" placeholder="Mention any requirements" id="require">
+        <input type="text" placeholder="Description" id="desc">
+        <button>Request OD</button>
+        
+    </form>
+    <div class="ODstatus">
+        <h4>OD Status</h4>
+        <div class="acceptedOrNot">
+            <div class="regNo">
+                <p id="reg">Regno</p>
+                <p id="staff">staff</p>
+            </div>
+            <div class="date">
+                <p id="df">Date From</p>
+                <p id="dt">Date To</p>
+            </div>
+            <div class="desc">
+                <p id="des">Description</p>
+            </div>
+            <div class="date">
+                <p id="status">Status</p>
+                <button id="del_od">Delete</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script type="module">
+    document.getElementById("regno").value = localStorage.getItem("regno");
+       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        push,
+        onValue,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDkWa8gMvrWxV_9nftyrMrUg_hd3LvxGAE",
+    authDomain: "replace----2.firebaseapp.com",
+    projectId: "replace----2",
+    storageBucket: "replace----2.appspot.com",
+    messagingSenderId: "437429447252",
+    appId: "1:437429447252:web:2cf6f6be64579f54c31bc1"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      addstaffs()
+      odstatus()
+      document.getElementById('odform').addEventListener('submit',function(e)
+    {
+        e.preventDefault()
+        var regno = localStorage.getItem("regno");
+        var staff_name =document.getElementById('teacher').value
+        var date_from = document.getElementById('date_from').value
+        var date_to = document.getElementById('date_to').value
+        var require = document.getElementById('require').value
+        var desc = document.getElementById('desc').value
+        const messageRef = ref(database, 'odrequest/'+ regno);
+          set(messageRef, {
+              regno:regno,
+              staff_name : staff_name,
+              date_from:date_from,
+              date_to:date_to,
+              require:require,
+              desc:desc,
+              status:"yet to accept",
+          })
+
+      window.location.reload()
+
+       
+    })
+    function addstaffs(){
+        
+        const selectElement = document.getElementById('teacher');
+      selectElement.innerHTML=''
+      var mref = ref(database,'staff_details')
+      onValue(mref,(snapshot)=>{
+          const data = snapshot.val()
+
+          for(let key in data){
+            // Create a new option element
+            const option = document.createElement('option');
+            option.value = data[key].username;
+            option.text = data[key].username;
+        
+            // Add the option to the select element
+            selectElement.add(option);
+          };
+      })
+
+    }
+    function odstatus()
+    {
+        var regno = localStorage.getItem("regno");
+        var mref = ref(database,'odrequest')
+        onValue(mref,(snapshot)=>{
+          const data = snapshot.val()
+          var staff = data[regno].staff_name;
+          var date_f = data[regno].date_from;
+          var date_t = data[regno].date_to;
+          let desc = data[regno].desc;
+          let sta = data[regno].status;
+          document.getElementById("reg").innerHTML = "<b>Register No: </b>"+regno;
+          document.getElementById("staff").innerHTML = "<b>Staff Name: </b>"+staff;
+          document.getElementById("df").innerHTML = "<b>Date From: </b>"+date_f;
+          document.getElementById("dt").innerHTML = "<b>Date To: </b>"+date_t;
+          document.getElementById("des").innerHTML = "<b>Description: </b>"+desc;
+          document.getElementById("status").innerHTML = "<b>Status: </b>"+ sta;
+          if(sta=="yet to accept"){
+            document.getElementById("status").style.border="4px solid black";
+          }
+          else if(sta=="Accepted"){
+            document.getElementById("status").style.border="4px solid green";
+          }
+          else if(sta=="Rejected") {
+            document.getElementById("status").style.border="4px solidRed";
+          }
+          document.getElementById("del_od").addEventListener("click",function(e){
+            e.preventDefault();
+        const keyRef = ref(database, 'odrequest/' + regno);
+
+            // Remove the key and its value
+            remove(keyRef)
+            .then(() => {
+                console.log('removed successfully');
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error('Error removing key: ', error);
+            });   
+          })
+        })
+
+
+    }
+</script>
+</body>
+</html>
